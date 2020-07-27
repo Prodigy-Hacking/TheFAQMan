@@ -1,7 +1,14 @@
 {
     "name": "TheFAQMan",
-    "author": "BoredFish",
-    "version": "0.0.1",
+    "version": "1.0.0",
     "description": "The FAQ bot for the ProdigyMathGameHacking Discord server",
-    "main": "index.js"
+    "main": "index.js",
+    "dependencies": {
+        "discord.js": "^12.2.0",
+        "nodemon": "^2.0.4"
+    },
+    "scripts": {
+        "start": "node index.js",
+        "dev": "nodemon index.js"
+    }
 }

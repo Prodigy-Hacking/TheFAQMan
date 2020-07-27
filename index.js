@@ -12,7 +12,7 @@ for (const file of commandFiles) {
 	client.commands.set(command.name, command);
 }
 
-client.once('ready', () => {
+client.on('ready', () => {
     console.log("Ready!");
 });
 client.on('message', message => {
@@ -36,4 +36,4 @@ client.on('message', message => {
 });
 
 
-client.login('haha you arent getting this');
+client.login('nope');
