@@ -1,0 +1,7 @@
+{
+    "name": "TheFAQMan",
+    "author": "BoredFish",
+    "version": "0.0.1",
+    "description": "The FAQ bot for the ProdigyMathGameHacking Discord server",
+    "main": "index.js"
+}
