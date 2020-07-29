@@ -1,4 +1,6 @@
 const { ReactionCollector } = require("discord.js-collector");
+const Enmap = require("enmap");
+addquestion = JSON.parse(fs.readFileSync("./questions.json", "utf8"))
 module.exports = {
   name: "addquestion",
   description: "Creates a FAQ Q&A",
