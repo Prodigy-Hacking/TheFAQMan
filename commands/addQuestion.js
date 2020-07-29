@@ -1,7 +1,7 @@
 const { ReactionCollector } = require("discord.js-collector");
 const Enmap = require("enmap");
-addquestion = JSON.parse(fs.readFileSync("./questions.json", "utf8"))
-module.exports = {
+const editJsonFile = require("edit-json-file");
+let file = editJsonFile(`./questions.json`);module.exports = {
   name: "addquestion",
   description: "Creates a FAQ Q&A",
   execute(message, args) {
@@ -12,6 +12,7 @@ module.exports = {
         time: 60000000
       })
       .then(collected => {
+        file.set('question', collected.first().content);
         message.channel.send('Question Logged!');
         console.log(collected.first().content);
         // The collected.first().content is the first thing the sender of the initial message chats
