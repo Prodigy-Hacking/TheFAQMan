@@ -15,5 +15,6 @@ module.exports = {
         // The collected.first().content is the first thing the sender of the initial message chats
         // The time: 60000000  represents that it won't collect data after 60 seconds
       });
-  }
+    
+}
 };
