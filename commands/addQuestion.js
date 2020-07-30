@@ -1,7 +1,9 @@
 const { ReactionCollector } = require("discord.js-collector");
 const Enmap = require("enmap");
-const editJsonFile = require("edit-json-file");
-let file = editJsonFile(`./questions.json`);module.exports = {
+const jsonfile = require('jsonfile')
+const file = './questions.json'
+
+module.exports = {
   name: "addquestion",
   description: "Creates a FAQ Q&A",
   execute(message, args) {
@@ -12,11 +14,11 @@ let file = editJsonFile(`./questions.json`);module.exports = {
         time: 60000000
       })
       .then(collected => {
-        file.set('question', collected.first().content);
-        message.channel.send('Question Logged!');
-        console.log(collected.first().content);
+        const obj = { question: 'collected.first().content' }
+        jsonfile.writeFileSync(file, obj)
+        message.channel.send("Question Logged!");
         // The collected.first().content is the first thing the sender of the initial message chats
         // The time: 60000000  represents that it won't collect data after 60 seconds
       });
-}
+  }
 };
