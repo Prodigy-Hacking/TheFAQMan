@@ -20,7 +20,7 @@ module.exports = {
       })
       .then(collected => {
         const obj = { 'question': collected.first().content }
-        jsonfile.writeFileSync(file, obj, { spaces: 2, flag: 'a' })
+        jsonfile.writeFileSync(file, obj, { flag: 'a' })
         message.channel.send("Question Logged!");
         // The collected.first().content is the first thing the sender of the initial message chats
         // The time: 60000000  represents that it won't collect data after 60 seconds
