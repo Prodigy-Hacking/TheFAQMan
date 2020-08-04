@@ -3,6 +3,7 @@ const Enmap = require("enmap");
 const jsonfile = require("jsonfile");
 const file = "./questions.json";
 const { MessageEmbed } = require("discord.js");
+const BugReport = require("../utils/bugReport.js");
 function between(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
