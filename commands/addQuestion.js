@@ -26,9 +26,9 @@ module.exports = {
       .then(collected => {
         var ID;
         ID = Math.random().toString(36).substr(2, 9);
-        const obj = { ID, Question: collected.first().content, Answer: collected.last().content};
+        const obj = { Question: collected.first().content, Answer: collected.last().content};
         jsonfile.writeFileSync(file, obj , { spaces: 2, flag: "a", EOL: '\r\n' });
-        message.channel.send("FAQ Logged");
+        message.channel.send("FAQ Logged!");
         // The collected.first().content is the first thing the sender of the initial message chats
         // The time: 60000000  represents that it won't collect data after 60 seconds
       });
