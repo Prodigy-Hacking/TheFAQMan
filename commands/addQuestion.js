@@ -3,11 +3,16 @@ const Enmap = require("enmap");
 const jsonfile = require("jsonfile");
 const file = "./questions.json";
 const { MessageEmbed } = require("discord.js");
+const Discord = require("discord.js");
+const client = new Discord.Client();
 function between(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
 const readline = require('readline');
 const fs = require('fs');
+function sendFAQChannel() {
+  client.channels.cache.get('701517404659777666').send(collected.first().content, collected.last().content);
+}
 
 module.exports = {
   name: "addfaq",
@@ -28,6 +33,7 @@ module.exports = {
         ID = Math.random().toString(36).substr(2, 9);
         const obj = { Question: collected.first().content, Answer: collected.last().content};
         jsonfile.writeFileSync(file, obj , { spaces: 2, flag: "a", EOL: '\r\n' });
+        sendFAQChannel();
         message.channel.send("FAQ Logged!");
         // The collected.first().content is the first thing the sender of the initial message chats
         // The time: 60000000  represents that it won't collect data after 60 seconds
