@@ -1,0 +1,18 @@
+ let embedcollecttrigger = new MessageEmbed()
+      .setColor("#ff9100")
+      .addField("Please reply with the ID.");
+    message.channel.send(embedcollecttrigger);
+    message.channel
+      .awaitMessages((m) => m.author.id == message.author.id, {
+        max: 1,
+        time: 60000000,
+      })
+      .then((collected) => {
+        const FAQ = myEnmap.get(collected.first())
+        let embedfaq = new MessageEmbed()
+          .setColor("#ff9100")
+          .addField(myEnmap.observe(collected.first().content), collected.first())
+        message.channel.send(embedfaq);
+        
+      });
+  },
