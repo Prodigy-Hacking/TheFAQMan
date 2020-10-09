@@ -14,7 +14,7 @@ module.exports = {
   name: "deleteall",
   description: "Deletes a FAQ Q&A",
   execute(message, args) {
-    if (message.member.hasPermission("ADMINISTRATOR")) {
+    if (message.member.hasPermission("ADMINISTRATOR", "MANAGE_SERVER", "KICK_MEMBERS")) {
       myEnmap.faqs.fetchAll;
       myEnmap.faqs.deleteAll();
       message.reply("deleted all faqs");

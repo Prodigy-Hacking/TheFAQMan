@@ -32,9 +32,20 @@ module.exports = {
         time: 60000000,
       })
       .then((collected) => {
-        if ((message.member.hasPermission("ADMINISTRATOR"))) {
-          var ID;
-          ID = Math.random().toString(36).substr(2, 9);
+        if ((message.member.hasPermission("ADMINISTRATOR", "MANAGE_SERVER", "KICK_MEMBERS"))) {
+          
+          function makeid(length) {
+            var result           = '';
+            var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            var charactersLength = characters.length;
+            for ( var i = 0; i < length; i++ ) {
+               result += characters.charAt(Math.floor(Math.random() * charactersLength));
+            }
+            return result;
+         }
+         var ID;
+         ID = makeid(5);
+          
           function sendFAQChannel() {
             let channel = client.channels.cache.get("701517404659777666")
             let faqqanda = new MessageEmbed()

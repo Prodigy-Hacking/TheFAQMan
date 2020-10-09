@@ -17,7 +17,7 @@ module.exports = {
   description: "Deletes a FAQ Q&A",
   execute(message, args) {
     myEnmap.faqs.fetchAll;
-    if (message.member.hasPermission("ADMINISTRATOR")) {
+    if (message.member.hasPermission("ADMINISTRATOR", "MANAGE_SERVER", "KICK_MEMBERS")) {
       myEnmap.faqs.evict(args);
       myEnmap.faqs.delete(args);
       let embeddelete = new MessageEmbed()
