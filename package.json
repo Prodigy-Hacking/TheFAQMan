@@ -2,7 +2,7 @@
   "name": "TheFAQMan",
   "version": "1.0.0",
   "description": "The FAQ bot for the ProdigyMathGameHacking Discord server",
-  "main": "index.js",
+  "main": "bot.js",
   "scripts": {
     "start": "node bot.js",
     "dev": "nodemon bot.js"
