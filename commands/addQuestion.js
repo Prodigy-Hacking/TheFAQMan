@@ -13,11 +13,7 @@ function between(min, max) {
 const readline = require("readline");
 const fs = require("fs");
 const { cpuUsage } = require("process");
-function sendFAQChannel() {
-  client.channels.cache
-    .get("701517404659777666")
-    .send(collected.first().content, collected.last().content);
-}
+
 
 module.exports = {
   name: "addfaq",
@@ -39,6 +35,14 @@ module.exports = {
         if ((message.member.hasPermission("ADMINISTRATOR"))) {
           var ID;
           ID = Math.random().toString(36).substr(2, 9);
+          function sendFAQChannel() {
+            let channel = client.channels.cache.get("701517404659777666")
+            let faqqanda = new MessageEmbed()
+                .setColor("#ff9100")
+                .addField(myEnmap.faqs.observe(ID), ID);
+              client.channels.cache.get('701517404659777666');
+              channel.send(faqqanda);
+          }
           myEnmap.faqs.fetchAll
           myEnmap.faqs.set(ID, [
             "Question: ",
@@ -46,7 +50,8 @@ module.exports = {
             "Answer: ",
             collected.last().content,
           ]);
-          message.channel.send("FAQ Saved! ID " + ID);
+          message.channel.send("FAQ Saved! ID is- " + ID);
+          sendFAQChannel();
         } else {
           message.channel.send(
             "Oops! looks like you don't have the right permissions!"
