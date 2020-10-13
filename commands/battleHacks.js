@@ -65,6 +65,10 @@ module.exports = {
         "Skip Enemy Turn",
         "[skipEnemyTurn.js](https://github.com/Prodigy-Hacking/ProdigyMathGameHacking/blob/master/hacks/battle/skipEnemyTurn.js)",
         true
+      )
+      .setFooter(
+        "Requested by " + message.author.username,
+        message.author.displayAvatarURL()
       );
     message.channel.send(embed);
   }

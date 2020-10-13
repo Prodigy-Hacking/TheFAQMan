@@ -22,7 +22,11 @@ module.exports = {
       myEnmap.faqs.delete(args);
       let embeddelete = new MessageEmbed()
         .setColor("#ff9100")
-        .addField("FAQ " + args, "Was deleted.");
+        .addField("FAQ " + args, "Was deleted.")
+        .setFooter(
+          "Requested by " + message.author.username,
+          message.author.displayAvatarURL()
+        );
       message.channel.send(embeddelete);
     } else {
       let embeddeleteabort = new MessageEmbed()
@@ -30,6 +34,10 @@ module.exports = {
         .addField(
           "Deletion aborted.",
           "You do not have the required permissions to do this!"
+        )
+        .setFooter(
+          "Requested by " + message.author.username,
+          message.author.displayAvatarURL()
         );
       message.channel.send(embeddeleteabort);
     }
