@@ -68,8 +68,8 @@ module.exports = {
       )
       .setFooter(
         "Requested by " + message.author.username,
-        message.author.displayAvatarURL()
-      );
+        message.author.displayAvatarURL({ format: "gif", dynamic: "true"})
+      )
     message.channel.send(embed);
   }
 };

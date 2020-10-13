@@ -25,8 +25,8 @@ module.exports = {
         .addField("FAQ " + args, "Was deleted.")
         .setFooter(
           "Requested by " + message.author.username,
-          message.author.displayAvatarURL()
-        );
+          message.author.displayAvatarURL({ format: "gif", dynamic: "true"})
+        )
       message.channel.send(embeddelete);
     } else {
       let embeddeleteabort = new MessageEmbed()
@@ -37,8 +37,8 @@ module.exports = {
         )
         .setFooter(
           "Requested by " + message.author.username,
-          message.author.displayAvatarURL()
-        );
+          message.author.displayAvatarURL({ format: "gif", dynamic: "true"})
+        )
       message.channel.send(embeddeleteabort);
     }
   },

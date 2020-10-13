@@ -14,7 +14,6 @@ const readline = require("readline");
 const fs = require("fs");
 const { cpuUsage } = require("process");
 
-
 module.exports = {
   name: "addfaq",
   description: "Creates a FAQ Q&A",
@@ -24,6 +23,10 @@ module.exports = {
       .addField(
         "Enter your question, then send that",
         "Then after that, send your answer. It will be 2 messages"
+      )
+      .setFooter(
+        "Requested by " + message.author.username,
+        message.author.displayAvatarURL({ format: "gif", dynamic: "true" })
       );
     message.channel.send(embedcollecttrigger);
     message.channel
@@ -32,29 +35,37 @@ module.exports = {
         time: 60000000,
       })
       .then((collected) => {
-        if ((message.member.hasPermission("ADMINISTRATOR", "MANAGE_SERVER", "KICK_MEMBERS"))) {
-          
+        if (
+          message.member.hasPermission(
+            "ADMINISTRATOR",
+            "MANAGE_SERVER",
+            "KICK_MEMBERS"
+          )
+        ) {
           function makeid(length) {
-            var result           = '';
-            var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            var result = "";
+            var characters =
+              "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
             var charactersLength = characters.length;
-            for ( var i = 0; i < length; i++ ) {
-               result += characters.charAt(Math.floor(Math.random() * charactersLength));
+            for (var i = 0; i < length; i++) {
+              result += characters.charAt(
+                Math.floor(Math.random() * charactersLength)
+              );
             }
             return result;
-         }
-         var ID;
-         ID = makeid(5);
-          
-          function sendFAQChannel() {
-            let channel = client.channels.cache.get("701517404659777666")
-            let faqqanda = new MessageEmbed()
-                .setColor("#ff9100")
-                .addField(myEnmap.faqs.observe(ID), ID);
-              client.channels.cache.get('701517404659777666');
-              channel.send(faqqanda);
           }
-          myEnmap.faqs.fetchAll
+          var ID;
+          ID = makeid(5);
+
+          function sendFAQChannel() {
+            let channel = client.channels.cache.get("701517404659777666");
+            let faqqanda = new MessageEmbed()
+              .setColor("#ff9100")
+              .addField(myEnmap.faqs.observe(ID), ID);
+            client.channels.cache.get("701517404659777666");
+            channel.send(faqqanda);
+          }
+          myEnmap.faqs.fetchAll;
           myEnmap.faqs.set(ID, [
             "Question: ",
             collected.first().content,
