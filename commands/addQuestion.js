@@ -1,6 +1,21 @@
 const { ReactionCollector } = require("discord.js-collector");
-const Enmap = require("enmap");
-const myEnmap = require("./myEnmap.js");
+const Sequelize = require("sequelize");
+const sequelize = new Sequelize("database", "user", "password", {
+  host: "localhost",
+  dialect: "sqlite",
+  logging: console.log,
+  // SQLite only
+  storage: "faqtemps.sqlite",
+});
+const FAQTemp = sequelize.define("faqtemps.sqlite", {
+  Question: {
+    type: Sequelize.STRING,
+    unique: true,
+    primaryKey: true,
+    allowNull: false,
+  },
+  Answer: Sequelize.TEXT,
+});
 const jsonfile = require("jsonfile");
 const file = "QandA/questions.json";
 const { MessageEmbed } = require("discord.js");
@@ -17,7 +32,11 @@ const { cpuUsage } = require("process");
 module.exports = {
   name: "addfaq",
   description: "Creates a FAQ Q&A",
-  execute(message, args) {
+  execute(message, args, client) {
+    const guild = client.guilds.cache.get(message.guild.id);
+    const guildid = guild.id;
+    FAQTemp.tableName = guildid
+    FAQTemp.sync();
     let embedcollecttrigger = new MessageEmbed()
       .setColor("#ff9100")
       .addField(
@@ -26,7 +45,7 @@ module.exports = {
       )
       .setFooter(
         "Requested by " + message.author.username,
-        message.author.displayAvatarURL({ format: "gif", dynamic: "true" })
+        message.author.displayAvatarURL({ format: "jpg", dynamic: "true" })
       );
     message.channel.send(embedcollecttrigger);
     message.channel
@@ -42,46 +61,30 @@ module.exports = {
             "KICK_MEMBERS"
           )
         ) {
-          function makeid(length) {
-            var result = "";
-            var characters =
-              "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-            var charactersLength = characters.length;
-            for (var i = 0; i < length; i++) {
-              result += characters.charAt(
-                Math.floor(Math.random() * charactersLength)
-              );
+          try {
+            // equivalent to: INSERT INTO tags (name, description, username) values (?, ?, ?);
+            const faq = FAQTemp.create({
+              Question: collected.first().content,
+              Answer: collected.last().content,
+            });
+            return message.reply(
+              `Question ${collected.first().content} added.`
+            );
+            FAQTemp.sync();
+          } catch (e) {
+            if (e.Question === "SequelizeUniqueConstraintError") {
+              FAQTemp.sync();
+              return message.reply("That FAQ already exists.");
             }
-            return result;
+            console.log(e);
+            FAQTemp.sync();
+            return message.reply("Something went wrong with adding a FAQ.");
           }
-          var ID;
-          ID = makeid(5);
-
-          function sendFAQChannel() {
-            let channel = client.channels.cache.get("701517404659777666");
-            let faqqanda = new MessageEmbed()
-              .setColor("#ff9100")
-              .addField(myEnmap.faqs.observe(ID), ID);
-            client.channels.cache.get("701517404659777666");
-            channel.send(faqqanda);
-          }
-          myEnmap.faqs.fetchAll;
-          myEnmap.faqs.set(ID, [
-            "Question: ",
-            collected.first().content,
-            "Answer: ",
-            collected.last().content,
-          ]);
-          message.channel.send("FAQ Saved! ID is- " + ID);
-          sendFAQChannel();
         } else {
           message.channel.send(
             "Oops! looks like you don't have the right permissions!"
           );
         }
-
-        // The collected.first().content is the first thing the sender of the initial message chats
-        // The time: 60000000  represents that it won't collect data after 60 seconds
       });
   },
 };

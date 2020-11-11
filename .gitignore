@@ -1,5 +1,7 @@
-
-
+LICENSE
+faqtemps.sqlite
+commands/kill.js
+node_modules
 config.json
 config.json
-config.json
+*.json

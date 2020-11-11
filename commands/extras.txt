@@ -16,3 +16,61 @@
         
       });
   },
+  function makeid(length) {
+            var result = "";
+            var characters =
+              "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            var charactersLength = characters.length;
+            for (var i = 0; i < length; i++) {
+              result += characters.charAt(
+                Math.floor(Math.random() * charactersLength)
+              );
+            }
+            return result;
+          }
+          var ID;
+          ID = makeid(5);
+
+          function sendFAQChannel() {
+            let channel = client.channels.cache.get("701517404659777666");
+            let faqqanda = new MessageEmbed()
+              .setColor("#ff9100")
+              .addField(myEnmap.faqs.observe(ID), ID);
+            client.channels.cache.get("701517404659777666");
+            channel.send(faqqanda);
+          }
+          myEnmap.faqs.fetchAll;
+          myEnmap.faqs.set(ID, [
+            "Question: ",
+            collected.first().content,
+            "Answer: ",
+            collected.last().content,
+          ]);
+let embedfaq = new MessageEmbed()
+          .setColor("#ff9100")
+          .addField(args, FAQTemp.get("Answer"))
+          .setAuthor(
+            message.author.username,
+            message.author.displayAvatarURL({ format: "gif", dynamic: "true" })
+          )
+          .setFooter("Created At: " + FAQTemp.get("createdAt"));
+        message.channel.send(embedfaq);
+        async function questionfaq() {
+      const faq = JSON.stringify(
+        await FAQTemp.findOne(
+          {
+            where: { Question: args },
+          },
+          { raw: true }
+        )
+      );
+      let embedfaq = new MessageEmbed()
+        .setColor("#ff9100")
+        .addField(faq.Question, faq.Answer)
+        .setAuthor(
+          message.author.username,
+          message.author.displayAvatarURL({ format: "gif", dynamic: "true" })
+        )
+        .setFooter("Created At: " + faq.createdAt);
+      message.channel.send(embedfaq);
+    }

@@ -1,6 +1,26 @@
 const Discord = require("discord.js");
-const bot = new Discord.Client();
-const myEnmap = require("./myEnmap.js");
+const client = new Discord.Client();
+const Sequelize = require("sequelize");
+const sequelize = new Sequelize("database", "user", "password", {
+  host: "localhost",
+  dialect: "sqlite",
+  logging: console.log,
+  // SQLite only
+  storage: "faqtemps.sqlite",
+});
+const FAQTemp = sequelize.define(
+  "faqtemps.sqlite",
+  {
+    Question: {
+      type: Sequelize.STRING,
+      unique: true,
+      primaryKey: true,
+      allowNull: false
+    },
+    Answer: Sequelize.TEXT,
+  },
+);
+
 module.exports = {
   name: "eval",
   description: "Eval Code",
@@ -12,7 +32,7 @@ module.exports = {
           .replace(/@/g, "@" + String.fromCharCode(8203));
       else return text;
     }
-    if (message.content.startsWith(">" + "eval")) {
+    if (message.content.startsWith("b>" + "eval")) {
       if (message.author.id !== "388813100964642816") return;
       try {
         const code = args.join(" ");
