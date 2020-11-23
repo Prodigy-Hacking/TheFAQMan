@@ -1,12 +1,14 @@
 <h1 align="center">		<img
 <img
 		align="center"
-		width="512"
+		width="128"
 		alt="The Lounge"
 		src="https://cdn.discordapp.com/attachments/695345270338355232/780522040226086932/TheFAQMan.png">
 </h1>
 <p align="center">
-[![Discord Bots](https://top.gg/api/widget/status/737142055670775850.svg)](https://top.gg/bot/737142055670775850)
+<a href="https://top.gg/bot/737142055670775850">
+    <img src="https://top.gg/api/widget/737142055670775850.svg" alt="TheFAQMan" />
+</a>
 
 
 </p>
