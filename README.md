@@ -9,9 +9,6 @@
 <a href="https://top.gg/bot/737142055670775850">
     <img src="https://top.gg/api/widget/737142055670775850.svg" alt="TheFAQMan" />
 </a>
-	
-<script src="https://discordbotlist.com/widget/index.js"></script>
-<dbl-widget bot-id="bot-thefaqman" centered></dbl-widget>
 
 </p>
 This is the FAQ bot that is actively maintained. You can add, remove, and view FAQ answers. 
