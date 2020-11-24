@@ -13,16 +13,16 @@ module.exports = {
         "Requested by " + message.author.username,
         message.author.displayAvatarURL({ format: "gif", dynamic: "true"})
       )
-      .addField("Server Name", guild.name)
-      .addField("Server Owner", guild.owner)
-      .addField("Server Created?", guild.createdAt)
-      .addField("Member Count", guild.memberCount)
-      .addField("Server ID", guild.id)
-      .addField("Partnered?", guild.partnered)
-      .addField("Boost Count", guild.premiumSubscriptionCount)
-      .addField("Boost Level", guild.premiumTier)
-      .addField("Server Region", guild.region)
-      .addField("Server Verified?", guild.verified);
+      .addField("Server Name", guild.name, true)
+      .addField("Server Owner", guild.owner, true)
+      .addField("Server Created?", guild.createdAt, true)
+      .addField("Member Count", guild.memberCount, true)
+      .addField("Server ID", guild.id, true)
+      .addField("Partnered?", guild.partnered, true)
+      .addField("Boost Count", guild.premiumSubscriptionCount, true)
+      .addField("Boost Level", guild.premiumTier, true)
+      .addField("Server Region", guild.region, true)
+      .addField("Server Verified?", guild.verified, true);
     message.channel.send(embed);
   },
 };
