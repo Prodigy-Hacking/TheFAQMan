@@ -1,14 +1,4 @@
-const { ReactionCollector } = require("discord.js-collector");
-const Discord = require("discord.js");
 const Sequelize = require("sequelize");
-const client = new Discord.Client();
-const jsonfile = require("jsonfile");
-const file = "./questions.json";
-const fs = require("fs");
-const botSettings = require("../config.json");
-const prefix = botSettings.prefix;
-const editJsonFile = require("edit-json-file");
-let file2 = editJsonFile(`./questions.json`);
 const { MessageEmbed } = require("discord.js");
 var Honeybadger = require('honeybadger').configure({
   apiKey: '249af784'
@@ -48,7 +38,7 @@ module.exports = {
             })
           );
           faq = JSON.parse(faq);
-          const faqembed = new Discord.MessageEmbed()
+          const faqembed = new MessageEmbed()
             .setColor("#ff9100")
             .addField(faq.Question, 'Question')
             .addField(faq.Answer, "Answer")

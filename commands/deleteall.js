@@ -1,4 +1,3 @@
-const { ReactionCollector } = require("discord.js-collector");
 const Sequelize = require("sequelize");
 var Honeybadger = require('honeybadger').configure({
   apiKey: '249af784'
@@ -22,14 +21,6 @@ const FAQTemp = sequelize.define(
     Answer: Sequelize.TEXT,
   },
 );
-const jsonfile = require("jsonfile");
-const file = "./questions.json";
-const fs = require("fs");
-const botSettings = require("../config.json");
-const prefix = botSettings.prefix;
-const editJsonFile = require("edit-json-file");
-let file2 = editJsonFile(`./questions.json`);
-const { MessageEmbed } = require("discord.js");
 function clean(text) {
   if (typeof text === "string")
     return text
@@ -47,7 +38,7 @@ module.exports = {
     FAQTemp.sync();
     if (message.member.hasPermission("ADMINISTRATOR")) {
       try {
-        const FAQCount = FAQTemp.findAndCountAll();
+        FAQTemp.findAndCountAll();
         FAQTemp.destroy({
           truncate: true,
         });

@@ -1,16 +1,5 @@
-const { ReactionCollector } = require("discord.js-collector");
 const Sequelize = require("sequelize");
-const Discord = require("discord.js");
-const client = new Discord.Client();
-const jsonfile = require("jsonfile");
-const file = "./questions.json";
-const fs = require("fs");
-const botSettings = require("../config.json");
-const prefix = botSettings.prefix;
-const editJsonFile = require("edit-json-file");
-let file2 = editJsonFile(`./questions.json`);
 const { MessageEmbed } = require("discord.js");
-const { cpuUsage } = require("process");
 var Honeybadger = require("honeybadger").configure({
   apiKey: "249af784",
 });

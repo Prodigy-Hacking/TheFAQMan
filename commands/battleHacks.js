@@ -1,4 +1,3 @@
-const { description } = require("./ping");
 const { MessageEmbed } = require("discord.js");
 module.exports = {
   name: "battle",

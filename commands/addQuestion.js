@@ -1,4 +1,4 @@
-const { ReactionCollector } = require("discord.js-collector");
+const Discord = require("discord.js");
 var Honeybadger = require("honeybadger").configure({
   apiKey: "249af784",
 });
@@ -19,18 +19,7 @@ const FAQTemp = sequelize.define("faqtemps.sqlite", {
   },
   Answer: Sequelize.TEXT,
 });
-const jsonfile = require("jsonfile");
-const file = "QandA/questions.json";
 const { MessageEmbed } = require("discord.js");
-const Discord = require("discord.js");
-const client = new Discord.Client();
-function between(min, max) {
-  return Math.floor(Math.random() * (max - min + 1) + min);
-}
-
-const readline = require("readline");
-const fs = require("fs");
-const { cpuUsage } = require("process");
 
 module.exports = {
   name: "addfaq",
@@ -64,14 +53,14 @@ module.exports = {
           message.member.hasPermission("KICK_MEMBERS")
         ) {
           try {
-            const faq = FAQTemp.create({
+            FAQTemp.create({
               Question: collected.first().content,
               Answer: collected.last().content,
             });
+            FAQTemp.sync();
             return message.reply(
               `Question ${collected.first().content} added.`
             );
-            FAQTemp.sync();
           } catch (e) {
             if (e.Question === "SequelizeUniqueConstraintError") {
               FAQTemp.sync();
