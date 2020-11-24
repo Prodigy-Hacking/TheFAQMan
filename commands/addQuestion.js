@@ -1,4 +1,3 @@
-const Discord = require("discord.js");
 var Honeybadger = require("honeybadger").configure({
   apiKey: "249af784",
 });

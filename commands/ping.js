@@ -1,9 +1,4 @@
 const { MessageEmbed } = require("discord.js");
-const Discord = require("discord.js");
-const client = new Discord.Client();
-var Honeybadger = require('honeybadger').configure({
-  apiKey: '249af784'
-});
 
 module.exports = {
   name: "ping",
