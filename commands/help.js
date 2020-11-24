@@ -15,6 +15,8 @@ module.exports = {
       .addField("listfaq", "List all FAQ entries", true)
       .addField("ping", "Shows Ping", true)
       .addField("deletefaq", "Deletes a FAQ entry", true)
+      .addField("Serverinfo", "Lists info about server", true)
+      .addField("Userinfo", "Shows info about a user", true)
       .setFooter(
         "Requested by " + message.author.username,
         message.author.displayAvatarURL({ format: "gif", dynamic: "true"})
