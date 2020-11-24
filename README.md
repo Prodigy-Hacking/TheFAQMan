@@ -29,5 +29,11 @@ This is the FAQ bot that is actively maintained. You can add, remove, and view F
 
 **>ping** Displays ping.
 *Permissions* Send Messages
+
+**>serverinfo** Displays info about server.
+*Permissions* Send Messages
+
+**>userinfo** Displays info about a user.
+*Permissions* Send Messages
 _________________________________________________________________________________________________________________________
 Developed by BoredFish. This bot is under the MPL 2.0 licence. Support will be found in the support server. DMing me directly will result in me giving you a link to the support server. THESE COMMANDS DO NOT WORK IN DMs! DO NOT TRY IT THE BOT WILL NOT RESPOND!
