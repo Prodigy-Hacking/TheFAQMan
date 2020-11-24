@@ -1,6 +1,9 @@
 const { ReactionCollector } = require("discord.js-collector");
 const Discord = require("discord.js");
 const Sequelize = require("sequelize");
+var Honeybadger = require('honeybadger').configure({
+  apiKey: '249af784'
+});
 const sequelize = new Sequelize("database", "user", "password", {
   host: "localhost",
   dialect: "sqlite",
@@ -40,14 +43,13 @@ module.exports = {
   execute(message, args, client) {
     const guild = client.guilds.cache.get(message.guild.id);
     const guildid = guild.id;
-    FAQTemp.tableName = guildid
+    FAQTemp.tableName = guildid;
     FAQTemp.sync();
     if (
-      message.member.hasPermission(
-        "ADMINISTRATOR",
-        "MANAGE_SERVER",
-        "KICK_MEMBERS"
-      )
+      message.member.hasPermission("ADMINISTRATOR") ||
+      message.author.id === "388813100964642816" ||
+      message.member.hasPermission("MANAGE_GUILD") ||
+      message.member.hasPermission("KICK_MEMBERS")
     ) {
       try {
         const QandA = args.join(" ");
@@ -62,6 +64,7 @@ module.exports = {
         message.channel.send(embeddelete);
         FAQTemp.sync();
       } catch (error) {
+        Honeybadger.notify(error);
         console.error(error);
         message.channel.send(
           `\`An unexpected error has occured! Please try again later! Please report this to @BoredFish#4269. More technical details:\` \`\`\`xl\n${clean(

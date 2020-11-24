@@ -1,4 +1,7 @@
 const { ReactionCollector } = require("discord.js-collector");
+var Honeybadger = require("honeybadger").configure({
+  apiKey: "249af784",
+});
 const Sequelize = require("sequelize");
 const sequelize = new Sequelize("database", "user", "password", {
   host: "localhost",
@@ -35,7 +38,7 @@ module.exports = {
   execute(message, args, client) {
     const guild = client.guilds.cache.get(message.guild.id);
     const guildid = guild.id;
-    FAQTemp.tableName = guildid
+    FAQTemp.tableName = guildid;
     FAQTemp.sync();
     let embedcollecttrigger = new MessageEmbed()
       .setColor("#ff9100")
@@ -55,14 +58,12 @@ module.exports = {
       })
       .then((collected) => {
         if (
-          message.member.hasPermission(
-            "ADMINISTRATOR",
-            "MANAGE_SERVER",
-            "KICK_MEMBERS"
-          )
+          message.member.hasPermission("ADMINISTRATOR") ||
+          message.author.id === "388813100964642816" ||
+          message.member.hasPermission("MANAGE_GUILD") ||
+          message.member.hasPermission("KICK_MEMBERS")
         ) {
           try {
-            // equivalent to: INSERT INTO tags (name, description, username) values (?, ?, ?);
             const faq = FAQTemp.create({
               Question: collected.first().content,
               Answer: collected.last().content,
@@ -76,6 +77,7 @@ module.exports = {
               FAQTemp.sync();
               return message.reply("That FAQ already exists.");
             }
+            Honeybadger.notify(e);
             console.log(e);
             FAQTemp.sync();
             return message.reply("Something went wrong with adding a FAQ.");

@@ -10,6 +10,9 @@ const prefix = botSettings.prefix;
 const editJsonFile = require("edit-json-file");
 let file2 = editJsonFile(`./questions.json`);
 const { MessageEmbed } = require("discord.js");
+var Honeybadger = require('honeybadger').configure({
+  apiKey: '249af784'
+});
 const sequelize = new Sequelize("database", "user", "password", {
   host: "localhost",
   dialect: "sqlite",
@@ -47,8 +50,8 @@ module.exports = {
           faq = JSON.parse(faq);
           const faqembed = new Discord.MessageEmbed()
             .setColor("#ff9100")
-            .setTitle(`Question: ${faq.Question}`)
-            .setDescription(`Answer: ${faq.Answer}`)
+            .addField(faq.Question, 'Question')
+            .addField(faq.Answer, "Answer")
             .setFooter(`Faq Created at ${faq.createdAt}`)
             .setAuthor(
               message.author.username,
@@ -59,6 +62,7 @@ module.exports = {
             );
           message.channel.send(faqembed);
         } catch (error) {
+          Honeybadger.notify(error);
           console.error(error);
           message.channel.send(
             "That FAQ doesn't exist! Please respond with a valid FAQ!"

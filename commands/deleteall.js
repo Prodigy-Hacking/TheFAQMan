@@ -1,5 +1,8 @@
 const { ReactionCollector } = require("discord.js-collector");
 const Sequelize = require("sequelize");
+var Honeybadger = require('honeybadger').configure({
+  apiKey: '249af784'
+});
 const sequelize = new Sequelize("database", "user", "password", {
   host: "localhost",
   dialect: "sqlite",
@@ -51,6 +54,7 @@ module.exports = {
         message.reply("Deleted all faqs");
         FAQTemp.sync();
       } catch (error) {
+        Honeybadger.notify(error);
         console.error(error);
         message.channel.send(
           `\`An unexpected error has occured! No FAQs were deleted. More technical details:\` \`\`\`xl\n${clean(

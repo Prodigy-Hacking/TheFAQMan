@@ -1,6 +1,9 @@
 const Discord = require("discord.js");
 const client = new Discord.Client();
 const Sequelize = require("sequelize");
+var Honeybadger = require("honeybadger").configure({
+  apiKey: "249af784",
+});
 const sequelize = new Sequelize("database", "user", "password", {
   host: "localhost",
   dialect: "sqlite",
@@ -8,18 +11,15 @@ const sequelize = new Sequelize("database", "user", "password", {
   // SQLite only
   storage: "faqtemps.sqlite",
 });
-const FAQTemp = sequelize.define(
-  "faqtemps.sqlite",
-  {
-    Question: {
-      type: Sequelize.STRING,
-      unique: true,
-      primaryKey: true,
-      allowNull: false
-    },
-    Answer: Sequelize.TEXT,
+const FAQTemp = sequelize.define("faqtemps.sqlite", {
+  Question: {
+    type: Sequelize.STRING,
+    unique: true,
+    primaryKey: true,
+    allowNull: false,
   },
-);
+  Answer: Sequelize.TEXT,
+});
 
 module.exports = {
   name: "eval",
@@ -32,7 +32,7 @@ module.exports = {
           .replace(/@/g, "@" + String.fromCharCode(8203));
       else return text;
     }
-    if (message.content.startsWith("b>" + "eval")) {
+    if (message.content.startsWith(">" + "eval")) {
       if (message.author.id !== "388813100964642816") return;
       try {
         const code = args.join(" ");

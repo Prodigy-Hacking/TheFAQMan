@@ -5,7 +5,46 @@ const config = require("./config.json");
 const { prefix } = require("./config.json");
 client.commands = new Discord.Collection();
 const { Sequelize } = require("sequelize");
+var Honeybadger = require("honeybadger").configure({
+  apiKey: "249af784",
+});
+const webhookClient = new Discord.WebhookClient(
+  "779377397413314581",
+  "RIBVE0pYmkQGmLhd4VcYBijMg5o6vMs88dZTp0BagZosbesWsjawapwcT7EgcJZNf-rb"
+);
+const DBL = require("dblapi.js");
+let dbl = new DBL(
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjczNzE0MjA1NTY3MDc3NTg1MCIsImJvdCI6dHJ1ZSwiaWF0IjoxNjA1MTA1MjE3fQ.Vs-Pc3BQ_YBJXWRdOZ4TizKpKEHa37uS-TiIUV4_g7E",
+  { webhookPort: 5000, webhookAuth: "password" }
+);
 
+// Optional events
+dbl.on("posted", () => {
+  console.log("Server count posted!");
+});
+
+dbl.on("error", (e) => {
+  console.log(`Oops! ${e}`);
+  Honeybadger.notify(e);
+});
+
+dbl.webhook.on("ready", (hook) => {
+  console.log(
+    `Webhook running at https://canary.discord.com/api/webhooks/779377397413314581/RIBVE0pYmkQGmLhd4VcYBijMg5o6vMs88dZTp0BagZosbesWsjawapwcT7EgcJZNf-rb`
+  );
+});
+dbl.webhook.on("vote", (vote) => {
+  const embed = new Discord.MessageEmbed()
+    .setTitle("Someone Voted!")
+    .setColor("#ff9100");
+
+  webhookClient.send(`User with ID ${vote.user} just voted!`, {
+    username: "some-username",
+    avatarURL:
+      "https://cdn.discordapp.com/attachments/695345270338355232/779392937511223337/3dgifmaker91407.gif",
+    embeds: [embed],
+  });
+});
 const sequelize = new Sequelize("database", "user", "password", {
   host: "localhost",
   dialect: "sqlite",
@@ -36,17 +75,23 @@ const commandFiles = fs
 
 client.once("ready", () => {
   FAQTemp.sync();
-  client.user.setActivity(client.guilds.cache.size + ' servers', { type: 'WATCHING' });
+  client.user.setActivity(client.guilds.cache.size + " servers", {
+    type: "WATCHING",
+  });
   console.log("My Body is ready.");
 });
 client.on("guildCreate", () => {
   // Fired every time the bot is added to a new server
-  client.user.setActivity(client.guilds.cache.size + ' servers', { type: 'WATCHING' });
+  client.user.setActivity(client.guilds.cache.size + " servers", {
+    type: "WATCHING",
+  });
 });
 
 client.on("guildDelete", () => {
   // Fired every time the bot is removed from a server
-  client.user.setActivity(client.guilds.cache.size + ' servers', { type: 'WATCHING' });
+  client.user.setActivity(client.guilds.cache.size + " servers", {
+    type: "WATCHING",
+  });
 });
 for (const file of commandFiles) {
   const command = require(`./commands/${file}`);
@@ -59,7 +104,7 @@ for (const file of commandFiles) {
 client.on("message", (message) => {
   const guild = client.guilds.cache.get(message.guild.id);
   const guildid = guild.id;
-  FAQTemp.tableName = guildid
+  FAQTemp.tableName = guildid;
   FAQTemp.sync();
   function clean(text) {
     if (typeof text === "string")
@@ -68,7 +113,8 @@ client.on("message", (message) => {
         .replace(/@/g, "@" + String.fromCharCode(8203));
     else return text;
   }
-  if (!message.content.startsWith(prefix) || message.channel.type == 'dm') return;
+  if (!message.content.startsWith(prefix) || message.channel.type == "dm")
+    return;
 
   const args = message.content.slice(prefix.length).trim().split(/ +/);
   const command = args.shift().toLowerCase();
@@ -79,10 +125,11 @@ client.on("message", (message) => {
   } catch (error) {
     console.error(error);
     message.channel.send(
-      `\`An unexpected error has occured! Please try again later! Please report this to @BoredFish#4269. More technical details:\` \`\`\`xl\n${clean(
+      `\`An unexpected error has occurred! Please try again later! Please report this to @BoredFish#4269. More technical details:\` \`\`\`xl\n${clean(
         error
       )}\n\`\`\``
     );
+    Honeybadger.notify(error);
   }
 });
 
