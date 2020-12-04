@@ -38,7 +38,7 @@ This is the FAQ bot that is actively maintained. You can add, remove, and view F
 
 Planned features=
 
-Make >faq case insensitive.
+~~Make >faq case insensitive.~~
 
 Make it so only part of Question is required.
 
