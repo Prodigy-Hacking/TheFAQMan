@@ -5,7 +5,7 @@ const Sequelize = require("sequelize");
 const sequelize = new Sequelize("database", "user", "password", {
   host: "localhost",
   dialect: "sqlite",
-  logging: console.log,
+  logging: console.re.log,
   // SQLite only
   storage: "faqtemps.sqlite",
 });
@@ -66,7 +66,7 @@ module.exports = {
               return message.reply("That FAQ already exists.");
             }
             Honeybadger.notify(e);
-            console.log(e);
+            console.re.log(e);
             FAQTemp.sync();
             return message.reply("Something went wrong with adding a FAQ.");
           }

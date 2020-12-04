@@ -1,12 +1,13 @@
 const Sequelize = require("sequelize");
 const { MessageEmbed } = require("discord.js");
-var Honeybadger = require('honeybadger').configure({
-  apiKey: '249af784'
+var Honeybadger = require("honeybadger").configure({
+  apiKey: "249af784",
 });
+
 const sequelize = new Sequelize("database", "user", "password", {
   host: "localhost",
   dialect: "sqlite",
-  logging: console.log,
+  logging: console.re.log,
   // SQLite only
   storage: "faqtemps.sqlite",
 });
@@ -19,6 +20,11 @@ const FAQTemp = sequelize.define("faqtemps.sqlite", {
   },
   Answer: Sequelize.TEXT,
 });
+const Op = Sequelize.Op;
+const operatorsAliases = {
+  $like: Op.like,
+  $not: Op.not,
+};
 
 module.exports = {
   name: "faq",
@@ -34,13 +40,17 @@ module.exports = {
         try {
           let faq = JSON.stringify(
             await FAQTemp.findOne({
-              where: { Question: QandA },
+              where: {
+                Question: {
+                  [Op.like]: QandA,
+                },
+              },
             })
           );
           faq = JSON.parse(faq);
           const faqembed = new MessageEmbed()
             .setColor("#ff9100")
-            .addField(faq.Question, 'Question')
+            .addField(faq.Question, "Question")
             .addField(faq.Answer, "Answer")
             .setFooter(`Faq Created at ${faq.createdAt}`)
             .setAuthor(

@@ -17,19 +17,20 @@ let dbl = new DBL(
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjczNzE0MjA1NTY3MDc3NTg1MCIsImJvdCI6dHJ1ZSwiaWF0IjoxNjA1MTA1MjE3fQ.Vs-Pc3BQ_YBJXWRdOZ4TizKpKEHa37uS-TiIUV4_g7E",
   { webhookPort: 5000, webhookAuth: "password" }
 );
+var consolere = require('console-remote-client').connect('console.re','80','thefaqman'); 
 
 // Optional events
 dbl.on("posted", () => {
-  console.log("Server count posted!");
+  console.re.log("Server count posted!");
 });
 
 dbl.on("error", (e) => {
-  console.log(`Oops! ${e}`);
+  console.re.log(`Oops! ${e}`);
   Honeybadger.notify(e);
 });
 
 dbl.webhook.on("ready", (hook) => {
-  console.log(
+  console.re.log(
     `Webhook running at https://canary.discord.com/api/webhooks/779377397413314581/RIBVE0pYmkQGmLhd4VcYBijMg5o6vMs88dZTp0BagZosbesWsjawapwcT7EgcJZNf-rb`
   );
 });
@@ -48,7 +49,7 @@ dbl.webhook.on("vote", (vote) => {
 const sequelize = new Sequelize("database", "user", "password", {
   host: "localhost",
   dialect: "sqlite",
-  logging: console.log,
+  logging: console.re.log,
   // SQLite only
   storage: "faqtemps.sqlite",
 });
@@ -63,7 +64,7 @@ const FAQTemp = sequelize.define("faqtemps.sqlite", {
 async function checkready() {
   try {
     await sequelize.authenticate();
-    console.log("Connection has been established successfully.");
+    console.re.log("Connection has been established successfully.");
   } catch (error) {
     console.error("Unable to connect to the database:", error);
   }
@@ -78,7 +79,7 @@ client.once("ready", () => {
   client.user.setActivity(client.guilds.cache.size + " servers", {
     type: "WATCHING",
   });
-  console.log("My Body is ready.");
+  console.re.log("My Body is ready.");
 });
 client.on("guildCreate", () => {
   // Fired every time the bot is added to a new server

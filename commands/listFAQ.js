@@ -6,7 +6,7 @@ var Honeybadger = require("honeybadger").configure({
 const sequelize = new Sequelize("database", "user", "password", {
   host: "localhost",
   dialect: "sqlite",
-  logging: console.log,
+  logging: console.re.log,
   // SQLite only
   storage: "faqtemps.sqlite",
 });
