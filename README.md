@@ -35,5 +35,16 @@ This is the FAQ bot that is actively maintained. You can add, remove, and view F
 
 **>userinfo** Displays info about a user.
 *Permissions* Send Messages
+
+Planned features=
+
+Make >faq case insensitive.
+
+Make it so only part of Question is required.
+
+Make >editFAQ command.
+
+Suggest features on the GitHub, in the Reviews, and in the discord support server! :)
+
 _________________________________________________________________________________________________________________________
 Developed by BoredFish. This bot is under the MPL 2.0 licence. Support will be found in the support server. DMing me directly will result in me giving you a link to the support server. THESE COMMANDS DO NOT WORK IN DMs! DO NOT TRY IT THE BOT WILL NOT RESPOND!
