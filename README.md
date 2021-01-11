@@ -44,6 +44,10 @@ Make it so only part of Question is required.
 
 Make >editFAQ command.
 
+Make website Dashboard.
+
+Make settings module.
+
 Suggest features on the GitHub, in the Reviews, and in the discord support server! :)
 
 _________________________________________________________________________________________________________________________
