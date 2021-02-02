@@ -12,40 +12,13 @@ const webhookClient = new Discord.WebhookClient(
   "779377397413314581",
   "RIBVE0pYmkQGmLhd4VcYBijMg5o6vMs88dZTp0BagZosbesWsjawapwcT7EgcJZNf-rb"
 );
-const DBL = require("dblapi.js");
-let dbl = new DBL(
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjczNzE0MjA1NTY3MDc3NTg1MCIsImJvdCI6dHJ1ZSwiaWF0IjoxNjA1MTA1MjE3fQ.Vs-Pc3BQ_YBJXWRdOZ4TizKpKEHa37uS-TiIUV4_g7E",
-  { webhookPort: 5000, webhookAuth: "password" }
-);
 var consolere = require('console-remote-client').connect('console.re','80','thefaqman'); 
+const oAuth = Discord.OAuth2Application;
+// dotenv
+require('dotenv').config();
+// Dashboard package
+const dashboard = require("discord-bot-dashboard");
 
-// Optional events
-dbl.on("posted", () => {
-  console.re.log("Server count posted!");
-});
-
-dbl.on("error", (e) => {
-  console.re.log(`Oops! ${e}`);
-  Honeybadger.notify(e);
-});
-
-dbl.webhook.on("ready", (hook) => {
-  console.re.log(
-    `Webhook running at https://canary.discord.com/api/webhooks/779377397413314581/RIBVE0pYmkQGmLhd4VcYBijMg5o6vMs88dZTp0BagZosbesWsjawapwcT7EgcJZNf-rb`
-  );
-});
-dbl.webhook.on("vote", (vote) => {
-  const embed = new Discord.MessageEmbed()
-    .setTitle("Someone Voted!")
-    .setColor("#ff9100");
-
-  webhookClient.send(`User with ID ${vote.user} just voted!`, {
-    username: "some-username",
-    avatarURL:
-      "https://cdn.discordapp.com/attachments/695345270338355232/779392937511223337/3dgifmaker91407.gif",
-    embeds: [embed],
-  });
-});
 const sequelize = new Sequelize("database", "user", "password", {
   host: "localhost",
   dialect: "sqlite",

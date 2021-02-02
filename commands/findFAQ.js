@@ -21,10 +21,7 @@ const FAQTemp = sequelize.define("faqtemps.sqlite", {
   Answer: Sequelize.TEXT,
 });
 const Op = Sequelize.Op;
-const operatorsAliases = {
-  $like: Op.like,
-  $not: Op.not,
-};
+
 
 module.exports = {
   name: "faq",

@@ -1,6 +1,9 @@
-
 commands/kill.js
-config.json
 *.xml
 *.iml
 faqtemps.sqlite
+node_modules
+*.json
+config.json
+config.json
+u301439402.20201209215350.tar.gz
