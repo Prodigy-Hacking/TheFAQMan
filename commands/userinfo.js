@@ -1,5 +1,4 @@
 const { MessageEmbed } = require("discord.js");
-const { strictLeft } = require("sequelize/types/lib/operators");
 
 module.exports = {
   name: "userinfo",
@@ -7,7 +6,6 @@ module.exports = {
   execute(message, args, client) {
     const taggedUser = message.mentions.members.first();
     let val = args
-    let isnum = /^\d+$/.test(val);
     if (taggedUser) {
       let embed = new MessageEmbed()
         .setColor("#42f2f5")
