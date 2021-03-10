@@ -105,7 +105,7 @@ module.exports = {
                 .then((collected) => {
                   try {
                   const NewAnswer = collected.first().content
-                  faq.Answer = NewAnswer
+                  faq.Answer = NewAnswer;
                   await faq.save();
                   message.channel.send("Success! The answer was saved.")
                   } catch(error){
