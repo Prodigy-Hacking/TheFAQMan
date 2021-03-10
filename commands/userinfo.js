@@ -5,7 +5,6 @@ module.exports = {
   description: "Info about the user.",
   execute(message, args, client) {
     const taggedUser = message.mentions.members.first();
-    let val = args
     if (taggedUser) {
       let embed = new MessageEmbed()
         .setColor("#42f2f5")
@@ -23,7 +22,7 @@ module.exports = {
         .addField("User's Last message sent", taggedUser.user.lastMessage, true)
         .addField("User ID", taggedUser.id, true)
         .addField("User is Bot?", taggedUser.user.bot, true)
-        .addField("User joined at?", taggedUser.joinedAt, true)
+        .addField("User joined at?", taggedUser.joinedAt, true);
       message.channel.send(embed);
     } else if (!message.mentions.users.size) {
       message.channel.send(
@@ -45,7 +44,7 @@ module.exports = {
         .addField("User's Last message sent", message.author.lastMessage, true)
         .addField("User ID", message.author.id, true)
         .addField("User is Bot?", message.author.bot, true)
-        .addField("User joined at?", message.member.joinedAt, true)
+        .addField("User joined at?", message.member.joinedAt, true);
       message.channel.send(embed);
     }
   },
