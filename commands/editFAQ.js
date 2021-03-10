@@ -83,7 +83,6 @@ module.exports = {
         })
         .then((collected) => {
           if (collected.first().content == "Yes" || "yes") {
-            
             let editfaqembed2 = new MessageEmbed()
               .setColor("#ff9100")
               .addField(
@@ -98,30 +97,30 @@ module.exports = {
               );
             message.channel.send(editfaqembed2);
             message.channel
-                .awaitMessages((m) => m.author.id == message.author.id, {
-                  max:1,
-                  time: 60000000,
-                })
-                .then((collected) => {
-                  try {
-                  const NewAnswer = collected.first().content
+              .awaitMessages((m) => m.author.id == message.author.id, {
+                max: 1,
+                time: 60000000,
+              })
+              .then((collected) => {
+                try {
+                  const NewAnswer = collected.first().content;
                   faq.Answer = NewAnswer;
-                  await faq.save();
-                  message.channel.send("Success! The answer was saved.")
-                  } catch(error){
-                    Honeybadger.notify(error);
-                    console.re.log(error);
-                    FAQTemp.sync();
-                    message.channel.send(
-                      `\`Uh Oh! Something went wrong! Please try again later! Please report this to @BoredFish#4269. More technical details:\` \`\`\`xl\n${clean(
-                        error
-                      )}\n\`\`\``
-                    );
-                  }
-                });
-                
-          } else if(collected.first().content == "No" || "no"){
-            message.channel.send("Alright, Aborting!")
+                  await;
+                  faq.save();
+                  message.channel.send("Success! The answer was saved.");
+                } catch (error) {
+                  Honeybadger.notify(error);
+                  console.re.log(error);
+                  FAQTemp.sync();
+                  message.channel.send(
+                    `\`Uh Oh! Something went wrong! Please try again later! Please report this to @BoredFish#4269. More technical details:\` \`\`\`xl\n${clean(
+                      error
+                    )}\n\`\`\``
+                  );
+                }
+              });
+          } else if (collected.first().content == "No" || "no") {
+            message.channel.send("Alright, Aborting!");
           }
         });
     } else {
